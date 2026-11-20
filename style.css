@@ -53,24 +53,24 @@
 }
 
 
-/* Interactive 3D ASCII field — homepage only */
+/* Vignette Bloom published animated mosaic background */
 .home-page{background:#090a0c}
 .home-page .hero{position:relative;background:transparent}
-.hero-world-canvas{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.9}
+.vignette-bloom-bg{position:fixed;inset:0;width:100vw;height:100vh;height:100dvh;border:0;z-index:0;pointer-events:none;opacity:.92;background:#090a0c;display:block}
 .home-page .grain{z-index:1;opacity:.025}
 .home-page main,.home-page .site-footer{position:relative;z-index:2}
 .home-page .hero-meta,.home-page .hero-title-wrap,.home-page .hero-foot{position:relative;z-index:2}
 .home-page .hero-wordmark{text-shadow:0 2px 34px rgba(0,0,0,.24)}
-@media(max-width:760px){.hero-world-canvas{opacity:.72}}
-@media(prefers-reduced-motion:reduce){.hero-world-canvas{opacity:.42}}
+@media(max-width:760px){.vignette-bloom-bg{opacity:.72}}
+@media(prefers-reduced-motion:reduce){.vignette-bloom-bg{opacity:.42}}
 
 
-/* Shared interactive background — all KarkiVerse pages */
+/* Shared Vignette Bloom background — all KarkiVerse pages */
 .inner-page{background:#090a0c}
-.inner-page .hero-world-canvas{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.78}
+.inner-page .vignette-bloom-bg{position:fixed;inset:0;width:100vw;height:100vh;height:100dvh;border:0;z-index:0;pointer-events:none;opacity:.84;background:#090a0c;display:block}
 .inner-page .grain{z-index:1;opacity:.025}
 .inner-page .site-header{z-index:30}
 .inner-page .inner-main,.inner-page .site-footer{position:relative;z-index:2}
 .inner-page .page-curtain{z-index:40}
-@media(max-width:760px){.inner-page .hero-world-canvas{opacity:.62}}
-@media(prefers-reduced-motion:reduce){.inner-page .hero-world-canvas{opacity:.38}}
+@media(max-width:760px){.inner-page .vignette-bloom-bg{opacity:.62}}
+@media(prefers-reduced-motion:reduce){.inner-page .vignette-bloom-bg{opacity:.38}}

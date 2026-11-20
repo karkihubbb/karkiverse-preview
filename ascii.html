@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b0b0c"><meta name="description" content="An animated Canvas2D ASCII art playground on KarkiVerse.">
+  <title>ASCII Lab — KarkiVerse</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css"><link rel="stylesheet" href="ascii.css">
+  <script defer src="ascii.js"></script>
+</head>
+<body class="inner-page ascii-page">
+  <div class="grain" aria-hidden="true"></div>
+  <header class="site-header">
+    <a class="brand" href="index.html">KarkiVerse<span>.</span></a>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a><a href="about.html">My Life</a><a href="games.html">Games</a><a href="voices.html">Voice</a><a href="karkiai.html">KarkiAI</a><a href="ascii.html" aria-current="page">ASCII</a>
+    </nav>
+  </header>
+  <main class="inner-main ascii-main" id="top">
+    <section class="ascii-heading">
+      <div class="section-label">05 / EXPERIMENTAL IMAGE TOOL</div>
+      <div class="ascii-heading-main"><h1 class="page-title">Vignette <em>Bloom.</em></h1><p class="page-lede">A living image, rebuilt cell by cell. Canvas-rendered texture, light and motion.</p></div>
+    </section>
+    <section class="ascii-workspace" aria-label="ASCII art editor">
+      <div class="ascii-stage-wrap">
+        <div class="ascii-stage-top"><span>LIVE CANVAS / 2D RASTER</span><span id="ascii-status">RENDERING</span></div>
+        <div class="ascii-stage"><canvas id="ascii-canvas" aria-label="Animated mosaic image effect"></canvas><div class="ascii-loading" id="ascii-loading">LOADING IMAGE</div></div>
+        <div class="ascii-stage-bottom"><span>CANVAS2D / REAL-TIME</span><span id="ascii-dimensions">— × —</span></div>
+      </div>
+      <aside class="ascii-controls">
+        <div class="ascii-control-head"><span>01 / SOURCE</span><span>IMAGE INPUT</span></div>
+        <label class="ascii-upload" for="ascii-upload"><span>＋</span><span><strong>Choose an image</strong><small>JPG, PNG, WEBP · processed locally</small></span></label>
+        <input id="ascii-upload" type="file" accept="image/*" hidden>
+        <div class="ascii-control-head"><span>02 / RENDER</span><span>STYLE ENGINE</span></div>
+        <label class="ascii-field">Render mode<select id="renderMode">
+          <option value="mosaic" selected>Mosaic</option><option value="characters">Characters</option><option value="dither">Dither</option><option value="pixel">Pixel</option><option value="dots">Dots</option><option value="cross">Cross</option><option value="diamond">Diamond</option><option value="voxel">Voxel</option><option value="lego">Lego</option><option value="mixed">Mixed</option><option value="lines">Lines</option><option value="diagonal">Diagonal</option><option value="braille">Braille</option><option value="disco">Disco</option><option value="hexdump">Hexdump</option><option value="matrix">Matrix</option><option value="rings">Rings</option><option value="hearts">Hearts</option><option value="stars">Stars</option><option value="hexagons">Hexagons</option><option value="triangles">Triangles</option><option value="bubbles">Bubbles</option><option value="hatch">Hatch</option><option value="contour">Contour</option><option value="halfblocks">Halfblocks</option>
+        </select></label>
+        <div class="ascii-range"><label for="cellSize">Cell size <output id="cellSizeOut">16 px</output></label><input id="cellSize" type="range" min="5" max="34" value="16"></div>
+        <div class="ascii-range"><label for="coverage">Coverage <output id="coverageOut">100%</output></label><input id="coverage" type="range" min="5" max="100" value="100"></div>
+        <div class="ascii-range"><label for="brightness">Brightness <output id="brightnessOut">+12</output></label><input id="brightness" type="range" min="-80" max="80" value="12"></div>
+        <div class="ascii-range"><label for="contrast">Contrast <output id="contrastOut">115%</output></label><input id="contrast" type="range" min="50" max="180" value="115"></div>
+        <div class="ascii-range"><label for="saturation">Saturation <output id="saturationOut">100%</output></label><input id="saturation" type="range" min="0" max="200" value="100"></div>
+        <label class="ascii-field">Background<select id="bgMode"><option value="solid" selected>Solid</option><option value="original">Original photo</option><option value="blurred">Blurred photo</option><option value="none">Transparent / none</option></select></label>
+        <label class="ascii-field">Character set<select id="charSet"><option value="standard">Standard</option><option value="blocks">Blocks</option><option value="minimal">Minimal</option><option value="binary">Binary</option></select></label>
+        <div class="ascii-toggles"><label><input id="invert" type="checkbox"> Invert luminance</label><label><input id="animated" type="checkbox" checked> Animate effect</label></div>
+        <div class="ascii-control-head"><span>03 / FINISH</span><span>POST EFFECTS</span></div>
+        <div class="ascii-effects">
+          <label><input type="checkbox" data-pfx="vignette" checked> Vignette <span>38</span></label>
+          <label><input type="checkbox" data-pfx="bloom" checked> Bloom <span>25</span></label>
+          <label><input type="checkbox" data-pfx="scanLines"> Scan lines <span>40</span></label>
+          <label><input type="checkbox" data-pfx="chromatic"> Chromatic <span>15</span></label>
+          <label><input type="checkbox" data-pfx="filmGrain"> Film grain <span>30</span></label>
+          <label><input type="checkbox" data-pfx="glitch"> Glitch <span>20</span></label>
+          <label><input type="checkbox" data-pfx="pixelate"> Pixelate <span>15</span></label>
+          <label><input type="checkbox" data-pfx="halftone"> Halftone <span>20</span></label>
+          <label><input type="checkbox" data-pfx="filmDust"> Film dust <span>20</span></label>
+        </div>
+        <div class="ascii-range"><label for="animIntensity">Motion intensity <output id="animIntensityOut">60%</output></label><input id="animIntensity" type="range" min="0" max="100" value="60"></div>
+        <div class="ascii-range"><label for="animSpeed">Motion speed <output id="animSpeedOut">100%</output></label><input id="animSpeed" type="range" min="0" max="200" value="100"></div>
+        <label class="ascii-field">Motion style<select id="animStyle"><option value="wave">Wave</option><option value="pulse">Pulse</option><option value="shimmer">Shimmer</option><option value="ripple">Ripple</option><option value="flicker">Flicker</option></select></label>
+        <button class="ascii-reset" id="resetAscii" type="button">RESET PARAMETERS <span>↺</span></button>
+      </aside>
+    </section>
+    <p class="ascii-footnote">The demo image loads from a public image source. Upload your own photo to replace it; your image stays in this browser and is not sent to a server.</p>
+  </main>
+  <footer class="site-footer"><a class="footer-brand" href="index.html">KarkiVerse<span>.</span></a><span>© 2026 KarkiVerse</span><span>Made by Sarwagya Karki</span><a href="#top">BACK TO TOP ↑</a></footer>
+</body></html>

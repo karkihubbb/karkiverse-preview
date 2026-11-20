@@ -1,1 +1,45 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Voice — KarkiVerse</title><link rel="stylesheet" href="style.css"><script defer src="shared.js"></script></head><body class="kv"><canvas class="topography"></canvas><div class="grain"></div><header class="kv-header"><div class="kv-bar"><a class="kv-logo" href="index.html">KarkiVerse.</a><nav class="kv-nav"><a href="index.html">Home</a><a href="about.html">My Life</a><a href="games.html">Games</a><a href="voices.html" aria-current="page">Voice</a><a href="https://karkiai.onrender.com/">KarkiAI</a></nav></div></header><main class="kv-wrap"><h1>Voice Zone</h1><p>Type something, pick a voice, and hear it spoken.</p><label for="say">Your text</label><textarea id="say" rows="7" style="width:100%;background:#111113;color:#f4f2ee;border:1px solid #232326;padding:16px" placeholder="Type what the voice should say"></textarea><label for="voice">Voice</label><select id="voice" style="width:100%;padding:14px;background:#111113;color:#f4f2ee;border:1px solid #232326"></select><p><button class="kv-btn" id="speak">Speak</button> <button class="kv-btn ghost" id="stop">Stop</button></p><p id="msg" role="status"></p></main><footer class="site-footer"><span>© 2026 KarkiVerse</span><span>Made by Sarwagya Karki</span></footer><script>const v=document.querySelector('#voice'),msg=document.querySelector('#msg');function load(){v.innerHTML='';speechSynthesis.getVoices().forEach((x,i)=>v.add(new Option(x.name+' ('+x.lang+')',i)))}load();speechSynthesis.onvoiceschanged=load;document.querySelector('#speak').onclick=()=>{const t=document.querySelector('#say').value.trim();if(!t){msg.textContent='Type something first.';return}speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t),vs=speechSynthesis.getVoices();if(vs[v.value])u.voice=vs[v.value];u.onend=()=>msg.textContent='';msg.textContent='Speaking…';speechSynthesis.speak(u)};document.querySelector('#stop').onclick=()=>{speechSynthesis.cancel();msg.textContent='Stopped.'}</script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b0b0c"><meta name="description" content="A browser text-to-speech tool on KarkiVerse.">
+  <title>Voice — KarkiVerse</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/lenis@1.1.9/dist/lenis.min.js"></script>
+  <script defer src="main.js"></script>
+</head>
+<body class="inner-page voice-page">
+  <canvas class="contours" aria-hidden="true"></canvas><div class="grain" aria-hidden="true"></div><div class="page-curtain" aria-hidden="true"></div>
+  <header class="site-header">
+    <a class="brand" href="index.html">KarkiVerse<span>.</span></a>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a><a href="about.html">My Life</a><a href="games.html">Games</a><a href="voices.html" aria-current="page">Voice</a><a href="karkiai.html">KarkiAI</a>
+    </nav><div class="scroll-progress" aria-hidden="true"></div>
+  </header>
+  <main class="inner-main" id="top">
+    <section class="page-intro">
+      <div class="section-label">03 / VOICE TOOL</div>
+      <h1 class="page-title"><span class="title-mask"><span class="title-line">Give words a <em>voice.</em></span></span></h1>
+      <p class="page-lede">Type something, choose a voice from your device, and hear it spoken.</p>
+    </section>
+    <section class="voice-layout">
+      <div class="voice-aside"><span class="section-label">TEXT TO SPEECH</span><p>Your browser provides the available voices. The list can be different on each device.</p></div>
+      <div class="voice-tool">
+        <label for="speech-text">YOUR TEXT</label><textarea id="speech-text" rows="7" placeholder="Type what you want to hear…"></textarea>
+        <div class="voice-fields">
+          <div><label for="speech-voice">VOICE</label><select id="speech-voice"><option value="">Loading voices…</option></select></div>
+          <div><label for="speech-deep">SLOW AND DEEP DELIVERY</label><select id="speech-deep"><option value="">Off</option><option value="deep">On</option></select></div>
+        </div>
+        <div class="voice-actions"><button class="action-button" id="speak-button">Speak <span aria-hidden="true">↗</span></button><button class="action-button secondary" id="stop-button">Stop</button></div>
+        <p class="voice-status" id="voice-status" role="status" aria-live="polite">Ready when you are.</p>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer"><a class="footer-brand" href="index.html">KarkiVerse<span>.</span></a><span>© 2026 KarkiVerse</span><span>Made by Sarwagya Karki</span><a href="#top">BACK TO TOP ↑</a></footer>
+  <div class="cursor-dot" aria-hidden="true"></div><div class="cursor-ring" aria-hidden="true"><span>View</span></div>
+</body>
+</html>

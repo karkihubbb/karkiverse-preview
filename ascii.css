@@ -1,0 +1,41 @@
+.ascii-main{padding-top:142px}
+.ascii-heading{display:grid;grid-template-columns:4fr 8fr;gap:24px;padding-bottom:58px;border-bottom:1px solid var(--line)}
+.ascii-heading>.section-label{padding-top:12px}
+.ascii-heading-main .page-title{font-size:clamp(62px,9vw,126px);line-height:.88;letter-spacing:-.055em}
+.ascii-heading-main .page-title em{font-family:'Instrument Serif',serif;font-weight:400}
+.ascii-heading-main .page-lede{margin:24px 0 0;max-width:560px}
+.ascii-workspace{display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:28px;padding-top:34px;align-items:start}
+.ascii-stage-wrap{position:sticky;top:110px;min-width:0}
+.ascii-stage-top,.ascii-stage-bottom,.ascii-control-head{display:flex;justify-content:space-between;gap:12px;font:400 10px/1.5 var(--mono);letter-spacing:.09em;color:var(--muted)}
+.ascii-stage{position:relative;margin:12px 0;background:#090a0c;aspect-ratio:4/3;overflow:hidden;border:1px solid var(--line)}
+.ascii-stage canvas{display:block;width:100%;height:100%}
+.ascii-loading{position:absolute;inset:0;display:grid;place-items:center;font:10px var(--mono);letter-spacing:.12em;color:var(--muted);background:#090a0c}
+.ascii-loading.is-hidden{display:none}
+.ascii-controls{border-left:1px solid var(--line);padding-left:24px}
+.ascii-control-head{padding:0 0 13px;border-bottom:1px solid var(--line);margin:0 0 16px}
+.ascii-control-head:not(:first-child){margin-top:28px}
+.ascii-upload{display:flex;gap:13px;align-items:center;border:1px solid var(--line);padding:14px;cursor:pointer;transition:border-color .2s}
+.ascii-upload:hover{border-color:var(--muted)}
+.ascii-upload>span:first-child{font-size:22px;color:var(--muted)}
+.ascii-upload strong,.ascii-upload small{display:block}.ascii-upload strong{font-size:13px;font-weight:500}.ascii-upload small{font:9px/1.6 var(--mono);color:var(--muted);margin-top:4px}
+.ascii-field{display:block;font-size:12px;color:var(--muted);margin:0 0 16px}
+.ascii-field select{display:block;width:100%;height:42px;margin-top:8px;padding:0 10px;color:var(--text);background:#111113;border:1px solid var(--line);border-radius:0;font:12px var(--display);outline:none}
+.ascii-field select:focus{border-color:#777}
+.ascii-range{margin:17px 0}
+.ascii-range label{display:flex;justify-content:space-between;gap:12px;font-size:12px;color:var(--muted)}
+.ascii-range output{font:10px var(--mono);color:var(--text)}
+.ascii-range input{display:block;width:100%;margin:12px 0 0;accent-color:#f4f2ee;cursor:pointer}
+.ascii-toggles{display:grid;gap:12px;padding:4px 0 8px}
+.ascii-toggles label,.ascii-effects label{display:flex;align-items:center;gap:9px;font-size:12px;color:var(--muted)}
+.ascii-toggles input,.ascii-effects input{accent-color:#f4f2ee}
+.ascii-effects{display:grid;grid-template-columns:1fr 1fr;gap:14px 8px}
+.ascii-effects label{font-size:11px;white-space:nowrap}
+.ascii-effects label span{margin-left:auto;font:9px var(--mono);color:#666}
+.ascii-reset{display:flex;justify-content:space-between;align-items:center;width:100%;padding:13px 0;margin-top:28px;border:0;border-top:1px solid var(--line);background:none;text-align:left;font:10px var(--mono);letter-spacing:.1em;color:var(--muted);cursor:pointer}
+.ascii-reset:hover{color:var(--text)}
+.ascii-reset span{font-size:17px}
+.ascii-footnote{max-width:720px;margin:48px 0 100px 33.333%;font-size:12px;line-height:1.7;color:var(--muted)}
+.ascii-page .site-footer{margin-top:0}
+@media(max-width:900px){.ascii-workspace{grid-template-columns:minmax(0,1fr) 270px;gap:20px}.ascii-controls{padding-left:18px}}
+@media(max-width:700px){.ascii-main{padding:120px 20px 70px}.ascii-heading{grid-template-columns:1fr;gap:22px;padding-bottom:38px}.ascii-heading-main .page-title{font-size:clamp(58px,17vw,100px)}.ascii-workspace{grid-template-columns:1fr;gap:34px}.ascii-stage-wrap{position:relative;top:auto}.ascii-controls{border-left:0;border-top:1px solid var(--line);padding:24px 0 0}.ascii-footnote{margin:34px 0 70px}.ascii-page .site-header{overflow-x:auto}.ascii-page .site-nav{gap:20px;flex-shrink:0}.ascii-page .site-nav a{font-size:12px}}
+@media(prefers-reduced-motion:reduce){.ascii-upload{transition:none}}

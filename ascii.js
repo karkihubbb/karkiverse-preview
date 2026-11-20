@@ -8,7 +8,7 @@ const photo=new Image();photo.crossOrigin='anonymous';photo.src='https://images.
 const $=id=>document.getElementById(id),clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),mix=(a,b,t)=>a+(b-a)*t;
 const pfx={vignette:38,bloom:25,scanLines:40,chromatic:15,filmGrain:30,glitch:20,pixelate:15,halftone:20,filmDust:20};
 const defaults={renderMode:'mosaic',bgMode:'solid',cellSize:16,coverage:100,invert:false,brightness:12,contrast:115,saturation:100,animated:true,animStyle:'wave',animSpeed:100,animIntensity:60,charSet:'standard'};
-let imageReady=false,sourceImage=photo,raf=0,start=performance.now(),last=0,w=900,h=675,dpr=1,phase=0,frame=0;
+let imageReady=false,sourceImage=photo,raf=0,startedAt=performance.now(),last=0,w=900,h=675,dpr=1,phase=0,frame=0;
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 function val(id){return $(id).value}
 function fit(){const box=canvas.parentElement.getBoundingClientRect();dpr=Math.min(devicePixelRatio||1,1.5);w=Math.max(320,Math.round(box.width*dpr));h=Math.round(w*.75);canvas.width=w;canvas.height=h;sample.width=w;sample.height=h;$('ascii-dimensions').textContent=w+' × '+h;render(performance.now())}

@@ -1,5 +1,5 @@
 (()=>{'use strict';
-const canvas=document.getElementById('ascii-canvas'),ctx=canvas.getContext('2d',{alpha:false,desynchronized:true}),loading=document.getElementById('ascii-loading');
+const canvas=document.getElementById('ascii-canvas'),ctx=canvas.getContext('2d',{alpha:true,desynchronized:true}),loading=document.getElementById('ascii-loading');
 const sample=document.createElement('canvas'),sctx=sample.getContext('2d',{willReadFrequently:true});
 const fxCanvas=document.createElement('canvas'),fxCtx=fxCanvas.getContext('2d');
 const maskCanvas=document.createElement('canvas'),maskCtx=maskCanvas.getContext('2d');let maskImage=null,maskInvert=false;
@@ -7,7 +7,7 @@ const pipeline={bgBlur:12,bgOpacity:90,edgeEmphasis:0,density:0,toneCurve:[{x:0,
 const photo=new Image();photo.crossOrigin='anonymous';photo.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1400&q=88';
 const $=id=>document.getElementById(id),clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),mix=(a,b,t)=>a+(b-a)*t;
 const pfx={vignette:38,bloom:25,scanLines:40,chromatic:15,filmGrain:30,glitch:20,pixelate:15,halftone:20,filmDust:20};
-const defaults={renderMode:'mosaic',bgMode:'solid',cellSize:16,coverage:100,invert:false,brightness:12,contrast:115,saturation:100,animated:true,animStyle:'wave',animSpeed:100,animIntensity:60,charSet:'standard'};
+const defaults={renderMode:'mosaic',bgMode:'solid',cellSize:16,coverage:100,invert:false,brightness:12,contrast:115,saturation:100,grayscale:0,tint:'#3ca6ff',tintOpacity:0,animated:true,animStyle:'wave',animSpeed:100,animIntensity:60,charSet:'standard'};
 let imageReady=false,sourceImage=photo,raf=0,startedAt=performance.now(),last=0,w=900,h=675,dpr=1,phase=0,frame=0;
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 function val(id){return $(id).value}
@@ -44,11 +44,11 @@ case'halfblocks':ctx.fillRect(-s/2,-s/2,s,s/2);ctx.fillStyle=color(c,alpha*.72);
 default:ctx.fillRect(-s/2,-s/2,s,s)
 }ctx.restore()}
 function animateOffset(x,y,s,t){const intensity=Number(val('animIntensity'))/100,speed=Number(val('animSpeed'))/100;if(!$('animated').checked||reduced||intensity===0)return[0,0];const tt=t*speed*.001;switch(val('animStyle')){case'pulse':return[0,Math.sin(tt*2)*s*.13*intensity];case'shimmer':return[0,Math.sin(tt*3+x*.08)*s*.08*intensity];case'ripple':{const d=Math.hypot(x-w/2,y-h/2)/Math.max(w,h);return[Math.cos(tt*2-d*18)*s*.16*intensity,Math.sin(tt*2-d*18)*s*.16*intensity]}case'flicker':return[0,(Math.sin(tt*13+x*.1+y*.13)*.5)*s*.09*intensity];default:return[0,Math.sin(tt*1.7+x*.012+y*.006)*s*.2*intensity]}}
-function render(t){if(!imageReady)return;const size=Number(val('cellSize'))*dpr,cols=Math.ceil(w/size),rows=Math.ceil(h/size);sctx.clearRect(0,0,w,h);sctx.drawImage(sourceImage,0,0,w,h);let pixels;try{pixels=sctx.getImageData(0,0,w,h).data}catch(e){$('ascii-status').textContent='IMAGE BLOCKED';return}
-ctx.globalCompositeOperation='source-over';ctx.fillStyle=val('bgMode')==='none'?'#090a0c':'#101114';ctx.fillRect(0,0,w,h);
+function render(t){if(!imageReady)return;const size=Number(val('cellSize'))*dpr,cols=Math.ceil(w/size),rows=Math.ceil(h/size);sctx.clearRect(0,0,w,h);if(pipeline.blurType==='off'){sctx.drawImage(sourceImage,0,0,w,h)}else{sctx.filter='blur('+pipeline.blurAmount/10+'px)';sctx.drawImage(sourceImage,0,0,w,h);sctx.filter='none'}let pixels;try{pixels=sctx.getImageData(0,0,w,h).data}catch(e){$('ascii-status').textContent='IMAGE BLOCKED';return}
+ctx.globalCompositeOperation='source-over';if(val('bgMode')==='none'){ctx.clearRect(0,0,w,h)}else{ctx.fillStyle='#101114';ctx.fillRect(0,0,w,h)}
 if(val('bgMode')==='original'){ctx.globalAlpha=pipeline.bgOpacity/100;ctx.drawImage(sourceImage,0,0,w,h);ctx.globalAlpha=1;ctx.fillStyle='rgba(8,9,12,.12)';ctx.fillRect(0,0,w,h)}
 if(val('bgMode')==='blurred'){ctx.save();ctx.filter='blur('+pipeline.bgBlur+'px) brightness(.42)';ctx.globalAlpha=pipeline.bgOpacity/100;ctx.drawImage(sourceImage,-20,-20,w+40,h+40);ctx.restore()}
-if(pipeline.blurType!=='off'){sctx.filter='blur('+pipeline.blurAmount/10+'px)';sctx.drawImage(sourceImage,0,0,w,h);sctx.filter='none'}
+
 const mode=val('renderMode'),coverage=Number(val('coverage'))/100,blend='source-over';ctx.globalCompositeOperation=blend;
 for(let gy=0;gy<rows;gy++){for(let gx=0;gx<cols;gx++){const x=gx*size,y=gy*size;if(((gx*17+gy*31)%997)/997>coverage)continue;let c=adjust(average(pixels,x,y,size)),l=lum(c);if($('invert').checked)l=1-l;const [ox,oy]=animateOffset(x,y,size,t);const pulse=$('animated').checked&&!reduced&&val('animStyle')==='flicker'?(Math.sin(t*.02+gx*2+gy)*.08):0;const edge=pipeline.edgeEmphasis?clamp(Math.abs(l-lum(average(pixels,x+size,y,size)))*pipeline.edgeEmphasis,0,.5):0;const cc=c.map(v=>clamp(v+pulse*255+edge*255,0,255));glyph(cc,l,x+ox,y+oy,size*(1+pipeline.density/100*.35),mode,t)}
 }
@@ -67,7 +67,7 @@ const half=get('halftone');if(half){ctx.save();ctx.globalAlpha=half*.32;ctx.fill
 const dust=get('filmDust');if(dust){ctx.fillStyle='rgba(255,255,255,'+(dust*.45)+')';for(let i=0;i<Math.floor(70*dust);i++){ctx.beginPath();ctx.arc(Math.random()*w,Math.random()*h,Math.random()*1.8*dpr,0,Math.PI*2);ctx.fill()}}
 }
 function applyLights(){if(!pipeline.lights.enabled)return;for(const p of pipeline.lights.points){const x=p.x*w,y=p.y*h,r=p.radius*Math.max(w,h),g=ctx.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,'rgba(255,255,255,'+clamp(p.intensity,0,1)+')');g.addColorStop(1,'rgba(255,255,255,0)');ctx.globalCompositeOperation='screen';ctx.fillStyle=g;ctx.fillRect(x-r,y-r,r*2,r*2)}ctx.globalCompositeOperation='source-over'}
-function applyMask(){if(!maskImage)return;maskCanvas.width=w;maskCanvas.height=h;maskCtx.clearRect(0,0,w,h);maskCtx.save();if(maskInvert)maskCtx.filter='invert(1)';maskCtx.drawImage(maskImage,0,0,w,h);maskCtx.restore();fxCanvas.width=w;fxCanvas.height=h;fxCtx.clearRect(0,0,w,h);fxCtx.drawImage(sourceImage,0,0,w,h);fxCtx.globalCompositeOperation='destination-in';fxCtx.drawImage(maskCanvas,0,0);fxCtx.globalCompositeOperation='source-over';ctx.drawImage(fxCanvas,0,0)}
+function applyMask(){if(!maskImage)return;maskCanvas.width=w;maskCanvas.height=h;maskCtx.clearRect(0,0,w,h);maskCtx.drawImage(maskImage,0,0,w,h);const md=maskCtx.getImageData(0,0,w,h),mp=md.data;for(let i=0;i<mp.length;i+=4){let a=(.2126*mp[i]+.7152*mp[i+1]+.0722*mp[i+2]);if(maskInvert)a=255-a;mp[i+3]=a}maskCtx.putImageData(md,0,0);fxCanvas.width=w;fxCanvas.height=h;fxCtx.clearRect(0,0,w,h);fxCtx.drawImage(sourceImage,0,0,w,h);fxCtx.globalCompositeOperation='destination-in';fxCtx.drawImage(maskCanvas,0,0);fxCtx.globalCompositeOperation='source-over';ctx.drawImage(fxCanvas,0,0)}
 function loop(t){if(t-last>30){render(t);last=t}raf=requestAnimationFrame(loop)}
 function start(){cancelAnimationFrame(raf);if($('animated').checked&&!reduced)raf=requestAnimationFrame(loop);else render(performance.now())}
 photo.onload=()=>{imageReady=true;loading.classList.add('is-hidden');fit();start()};

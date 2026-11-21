@@ -249,3 +249,7 @@ main,.site-footer{z-index:2}
   .hero:before{animation:none}
   *,*:before,*:after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important}
 }
+
+.flappy-stage canvas{display:block;width:min(100%,360px);height:auto;aspect-ratio:3/4;border:1px solid var(--line);touch-action:manipulation;background:#d2ded8}
+.flappy-stage{overflow:hidden}
+@media(max-width:760px){.flappy-stage canvas{width:min(100%,320px)}}

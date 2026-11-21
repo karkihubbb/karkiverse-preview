@@ -338,3 +338,51 @@ body:before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;bac
  .world-row:hover{padding-left:0;padding-right:0}
 }
 @media(prefers-reduced-motion:reduce){.hero-art-canvas{opacity:.55}}
+
+
+/* Pixel-faithful Next.js Conf 2022 composition adapted to KarkiVerse content */
+.conf-header{height:66px;padding:0 3.1vw;background:transparent;border:0;backdrop-filter:none;display:grid;grid-template-columns:1fr 1fr 1fr}
+.conf-header .brand{font:600 19px/1 var(--mono);letter-spacing:.04em;color:#f6f6f6}
+.conf-header .brand span{color:#f6f6f6;font-size:10px;vertical-align:top;margin-left:3px}
+.conf-header-note{text-align:center;font:400 9px/1.5 var(--mono);color:#9b9b9b;letter-spacing:.04em}
+.conf-menu-link{justify-self:end;font:400 9px/1 var(--mono);letter-spacing:.08em;color:#a5a5a5}
+.conf-menu-link span{color:#fff;margin-left:8px}
+.conf-hero{height:100svh;min-height:680px;max-height:1100px;padding:0 3.1vw;position:relative;display:block;overflow:hidden;background:#020202;isolation:isolate}
+.conf-hero .hero-art-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:1;mix-blend-mode:screen}
+.conf-meta{position:absolute;z-index:2;top:36px;left:3.1vw;right:3.1vw;display:flex;justify-content:center;gap:8px;font:400 9px/1.5 var(--mono);letter-spacing:.03em;color:#a4a4a4}
+.conf-meta span:first-child{display:none}
+.conf-headline-wrap{position:absolute;z-index:2;top:15.2%;left:5%;right:5%;text-align:center;pointer-events:none}
+.conf-eyebrow{margin:0 0 12px;font:400 9px/1.4 var(--mono);letter-spacing:.18em;color:#7f818a}
+.conf-headline{display:block;margin:0 auto;color:#d9d9dd;font:600 clamp(45px,7.2vw,92px)/.98 'Inter Tight',Arial,sans-serif;letter-spacing:-.075em;white-space:normal;text-align:center;text-shadow:0 5px 38px rgba(0,0,0,.4)}
+.conf-headline .accent-period{color:#f4f4f4;padding:0}
+.conf-hero-foot{position:absolute;z-index:2;left:3.1vw;right:3.1vw;bottom:24px;display:flex;justify-content:space-between;color:#74747a;font:400 9px/1.5 var(--mono);letter-spacing:.03em}
+.conf-hero-foot a{color:#85858b}
+.conf-cta{position:absolute;z-index:3;left:50%;bottom:10.4%;transform:translateX(-50%);height:42px;min-width:290px;padding:0 15px;display:flex;align-items:center;justify-content:space-between;gap:13px;border:1px solid rgba(255,255,255,.23);border-radius:999px;background:rgba(0,0,0,.25);backdrop-filter:blur(8px);color:#b8b8bf;font:400 10px/1 var(--mono);letter-spacing:.015em;white-space:nowrap;transition:border-color .25s,background .25s,color .25s}
+.conf-cta:hover{border-color:rgba(255,255,255,.7);background:rgba(255,255,255,.08);color:#fff}
+.conf-cta-icon{font-size:13px;color:#aaa}
+.conf-cta-arrow{font-size:15px;color:#fff}
+.conf-footer-nav{display:flex;gap:25px}
+.conf-footer-nav a{font:400 9px/1.5 var(--mono);letter-spacing:.06em;color:#96969d}
+.conf-footer-nav a:hover{color:#fff}
+.site-footer{background:#020202;border-color:rgba(255,255,255,.1);padding:30px 3.1vw}
+.site-footer .footer-brand{font:600 14px/1 var(--mono);letter-spacing:.05em}
+.site-footer .footer-brand span{color:#fff}
+@media(max-width:700px){
+ .conf-header{height:58px;padding:0 20px;grid-template-columns:1fr auto}
+ .conf-header-note{display:none}
+ .conf-header .brand{font-size:16px}
+ .conf-menu-link{font-size:8px}
+ .conf-hero{height:100svh;min-height:620px;padding:0 20px}
+ .conf-meta{top:83px;left:20px;right:20px;font-size:8px;justify-content:center}
+ .conf-headline-wrap{top:18%;left:5%;right:5%}
+ .conf-headline{font-size:clamp(42px,10.5vw,68px);line-height:.98;letter-spacing:-.07em}
+ .conf-eyebrow{font-size:8px;margin-bottom:10px}
+ .conf-hero .hero-art-canvas{opacity:.94}
+ .conf-cta{bottom:13%;min-width:260px;height:40px;font-size:9px}
+ .conf-hero-foot{left:20px;right:20px;bottom:20px;font-size:7px}
+ .conf-hero-foot span{max-width:48%}
+ .site-footer{padding:25px 20px;display:flex;flex-wrap:wrap;gap:18px}
+ .conf-footer-nav{order:3;width:100%;justify-content:space-between;gap:8px}
+ .site-footer>span{font-size:8px}
+}
+@media(max-width:370px){.conf-headline{font-size:39px}.conf-cta{min-width:245px}.conf-hero-foot{font-size:6.5px}}

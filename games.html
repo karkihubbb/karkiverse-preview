@@ -35,15 +35,22 @@
           <div class="snake-pad"><button data-dir="up" aria-label="Up">↑</button><button data-dir="left" aria-label="Left">←</button><button data-dir="down" aria-label="Down">↓</button><button data-dir="right" aria-label="Right">→</button></div>
         </div>
       </article>
+      <article class="game-panel" id="flappy">
+        <div class="game-copy"><div class="section-label">02 / ARCADE</div><h2>Flappy <em>Bird.</em></h2><p>Tap or press the space bar to fly through the pipes. Don't hit anything.</p>
+          <div class="game-actions"><button class="action-button" id="flappy-start">Start / Restart</button><button class="action-button secondary" id="flappy-flap">Flap</button><span class="game-status" id="flappyStatus" aria-live="polite">Tap Start, then tap to fly.</span></div>
+          <div class="game-score">SCORE <strong id="flappyScore">000</strong></div>
+        </div>
+        <div class="game-stage flappy-stage"><canvas id="flappyCanvas" width="360" height="480" aria-label="Flappy Bird game. Tap or press Space to fly."></canvas></div>
+      </article>
       <article class="game-panel" id="2048">
-        <div class="game-copy"><div class="section-label">02 / NUMBERS</div><h2>2048</h2><p>Join matching numbers and work toward 2048. Use the arrow keys or swipe.</p>
+        <div class="game-copy"><div class="section-label">03 / NUMBERS</div><h2>2048</h2><p>Join matching numbers and work toward 2048. Use the arrow keys or swipe.</p>
           <div class="game-actions"><button class="action-button" id="2048-new">New game</button><span class="game-status" id="2048-status" aria-live="polite">Make your first move.</span></div>
           <div class="game-score">SCORE <strong id="2048-score">000</strong></div>
         </div>
         <div class="game-stage"><div class="board-2048" id="board-2048" role="grid" aria-label="2048 game board"></div></div>
       </article>
       <article class="game-panel" id="rps">
-        <div class="game-copy"><div class="section-label">03 / QUICK GAME</div><h2>Rock, paper,<br><em>scissors.</em></h2><p>Choose one. The computer will choose too.</p>
+        <div class="game-copy"><div class="section-label">04 / QUICK GAME</div><h2>Rock, paper,<br><em>scissors.</em></h2><p>Choose one. The computer will choose too.</p>
           <div class="game-status rps-status" id="rps-result" aria-live="polite">Make your move.</div>
           <div class="game-score">WINS <strong id="rps-wins">000</strong></div>
         </div>

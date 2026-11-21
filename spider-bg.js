@@ -3,7 +3,7 @@ const canvas=document.getElementById('spider-web-bg');if(!canvas)return;
 const ctx=canvas.getContext('2d',{alpha:true});if(!ctx)return;
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 let w=0,h=0,dpr=1,raf=0,last=0;
-const pointer={x:-1000,y:-1000};
+const pointer={x:-1000,y:-1000,tx:-1000,ty:-1000,angle:0};
 const webs=[];
 function resize(){
  w=innerWidth;h=innerHeight;dpr=Math.min(devicePixelRatio||1,1.5);
@@ -43,6 +43,7 @@ function drawSpider(x,y,angle){
 }
 function frame(t){
  if(!last)last=t;ctx.clearRect(0,0,w,h);
+ if(pointer.tx>-500){pointer.x+=(pointer.tx-pointer.x)*.22;pointer.y+=(pointer.ty-pointer.y)*.22;}
  webs.forEach((web,i)=>{
   drawWeb(web,t);
   if(i===0){
@@ -52,13 +53,14 @@ function frame(t){
    drawSpider(p.x,p.y,angle+Math.PI/2);
   }
  });
+ if(pointer.tx>-500){drawSpider(pointer.x,pointer.y,pointer.angle);}
  const glow=ctx.createRadialGradient(pointer.x,pointer.y,0,pointer.x,pointer.y,150);
  glow.addColorStop(0,'rgba(232,65,44,.055)');glow.addColorStop(1,'rgba(232,65,44,0)');
  ctx.fillStyle=glow;ctx.fillRect(0,0,w,h);
  if(!reduce)raf=requestAnimationFrame(frame);
 }
 addEventListener('resize',resize,{passive:true});
-addEventListener('pointermove',e=>{pointer.x=e.clientX;pointer.y=e.clientY},{passive:true});
+addEventListener('pointermove',e=>{const dx=e.clientX-pointer.tx,dy=e.clientY-pointer.ty;if(pointer.tx>-500&&Math.hypot(dx,dy)>1)pointer.angle=Math.atan2(dy,dx);pointer.tx=e.clientX;pointer.ty=e.clientY;if(pointer.x<-500){pointer.x=e.clientX;pointer.y=e.clientY;}},{passive:true});
 document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelAnimationFrame(raf);else if(!reduce)raf=requestAnimationFrame(frame)});
 resize();frame(0);
 })();

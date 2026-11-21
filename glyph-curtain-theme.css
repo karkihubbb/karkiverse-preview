@@ -80,6 +80,8 @@ a{color:#2b2620}
 .voice-tool textarea::placeholder{color:#6f675b!important}
 .voice-tool textarea:focus,.voice-tool select:focus{border-color:#2b2620!important}
 .photo button{background:transparent!important}
+.photo img{filter:grayscale(1) sepia(.16) saturate(.72)!important}
+.photo button:hover img{filter:grayscale(1) sepia(.16) saturate(.72)!important}
 .photo-open{background:rgba(233,227,212,.9)!important;color:#2b2620!important}
 .photo figcaption{color:#6f675b!important}
 .photo-viewer,.photo-viewer::backdrop{background:#e9e3d4!important;color:#2b2620!important}

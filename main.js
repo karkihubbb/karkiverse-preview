@@ -5,46 +5,63 @@ root.classList.add('js-ready');
 const progress=d.querySelector('.scroll-progress');const updateProgress=()=>{if(!progress)return;const max=d.documentElement.scrollHeight-innerHeight;progress.style.width=(max>0?Math.min(100,scrollY/max*100):0)+'%'};addEventListener('scroll',updateProgress,{passive:true});addEventListener('resize',updateProgress);updateProgress();
 if(!reduce&&window.Lenis){const lenis=new Lenis({duration:1.1,easing:t=>1-Math.pow(1-t,3),smoothWheel:true});if(window.gsap&&window.ScrollTrigger){gsap.registerPlugin(ScrollTrigger);lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(t=>lenis.raf(t*1000));gsap.ticker.lagSmoothing(0)}else{const raf=t=>{lenis.raf(t);requestAnimationFrame(raf)};requestAnimationFrame(raf)}}
 
-/* KarkiVerse prism: animated faceted glass + spectral light beams, inspired by the Next.js Conf visual language. */
+/* Animated spectral glass prism — full-bleed Next.js Conf 2022-inspired hero artwork. */
 const hero=d.querySelector('.hero');
 if(hero){
-  const art=d.createElement('canvas');art.className='hero-art-canvas';art.setAttribute('aria-hidden','true');hero.prepend(art);
-  const c=art.getContext('2d');let w=0,h=0,dpr=1,t=0,mx=0,my=0,raf=0;
-  const pointer=e=>{const r=hero.getBoundingClientRect();mx=(e.clientX-r.left)/r.width-.5;my=(e.clientY-r.top)/r.height-.5};
-  hero.addEventListener('pointermove',pointer,{passive:true});hero.addEventListener('pointerleave',()=>{mx=0;my=0});
-  const resize=()=>{const r=hero.getBoundingClientRect();w=r.width;h=r.height;dpr=Math.min(devicePixelRatio||1,1.6);art.width=Math.round(w*dpr);art.height=Math.round(h*dpr);art.style.width=w+'px';art.style.height=h+'px';c.setTransform(dpr,0,0,dpr,0,0)};
-  if('ResizeObserver'in window)new ResizeObserver(resize).observe(hero);else addEventListener('resize',resize);resize();
-  const polygon=(pts,fill,stroke)=>{c.beginPath();pts.forEach((p,i)=>i?c.lineTo(p.x,p.y):c.moveTo(p.x,p.y));c.closePath();if(fill){c.fillStyle=fill;c.fill()}if(stroke){c.strokeStyle=stroke;c.lineWidth=1;c.stroke()}};
-  const draw=()=>{
-    t+=reduce?0:.008;
-    c.clearRect(0,0,w,h);
-    const mobile=w<700,cx=w*(mobile?.66:.70)+mx*24,cy=h*.49+my*20+Math.sin(t*.65)*9;
-    const scale=Math.min(w*.31,h*.38,310),rot=Math.sin(t*.48)*.16+mx*.13;
-    const halo=c.createRadialGradient(cx,cy,2,cx,cy,scale*2.6);
-    halo.addColorStop(0,'rgba(104,76,255,.16)');halo.addColorStop(.36,'rgba(0,210,255,.07)');halo.addColorStop(1,'rgba(0,0,0,0)');
-    c.fillStyle=halo;c.fillRect(0,0,w,h);
-    c.save();c.translate(cx,cy);c.rotate(rot);
-    const beamColors=['rgba(255,55,125,.18)','rgba(255,166,54,.18)','rgba(255,244,94,.16)','rgba(52,255,173,.16)','rgba(48,180,255,.2)','rgba(155,94,255,.2)'];
-    for(let i=0;i<6;i++){
-      const a=(-.78+i*.19)+Math.sin(t*.7+i)*.035;
-      const len=scale*(2.3+(i%3)*.25),spread=scale*(.13+i*.018);
-      const g=c.createLinearGradient(0,0,Math.cos(a)*len,Math.sin(a)*len);
-      g.addColorStop(0,beamColors[i]);g.addColorStop(.55,beamColors[i].replace(/0\.\d+\)/,'0.075)'));g.addColorStop(1,'rgba(0,0,0,0)');
-      c.beginPath();c.moveTo(-scale*.06,-scale*.08);c.lineTo(Math.cos(a)*len-Math.sin(a)*spread,Math.sin(a)*len+Math.cos(a)*spread);c.lineTo(Math.cos(a)*len+Math.sin(a)*spread,Math.sin(a)*len-Math.cos(a)*spread);c.closePath();c.fillStyle=g;c.fill();
-    }
-    const top={x:0,y:-scale*.72},left={x:-scale*.48,y:scale*.18},right={x:scale*.47,y:scale*.18},back={x:scale*.12,y:-scale*.08},bottom={x:0,y:scale*.7};
-    const glass=c.createLinearGradient(-scale*.5,-scale*.7,scale*.5,scale*.7);glass.addColorStop(0,'rgba(255,255,255,.25)');glass.addColorStop(.45,'rgba(123,190,255,.11)');glass.addColorStop(1,'rgba(255,255,255,.035)');
-    polygon([top,left,bottom,right],glass,'rgba(255,255,255,.72)');
-    polygon([top,right,back],'rgba(255,255,255,.19)','rgba(255,255,255,.82)');
-    polygon([top,left,back],'rgba(255,77,146,.18)','rgba(255,255,255,.5)');
-    polygon([left,back,right],'rgba(49,194,255,.16)','rgba(255,255,255,.45)');
-    polygon([left,bottom,right],'rgba(255,255,255,.06)','rgba(255,255,255,.45)');
-    c.beginPath();c.moveTo(top.x,top.y);c.lineTo(back.x,back.y);c.lineTo(bottom.x,bottom.y);c.strokeStyle='rgba(255,255,255,.75)';c.lineWidth=1.4;c.stroke();
-    c.restore();
-    if(!reduce)raf=requestAnimationFrame(draw);
-  };
-  draw();
-  document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelAnimationFrame(raf);else if(!reduce){cancelAnimationFrame(raf);raf=requestAnimationFrame(draw)}});
+ const art=d.createElement('canvas');art.className='hero-art-canvas';art.setAttribute('aria-hidden','true');hero.prepend(art);
+ const c=art.getContext('2d');let w=0,h=0,dpr=1,t=0,mx=0,my=0,raf=0;
+ const resize=()=>{const r=hero.getBoundingClientRect();w=r.width;h=r.height;dpr=Math.min(devicePixelRatio||1,1.5);art.width=Math.round(w*dpr);art.height=Math.round(h*dpr);art.style.width=w+'px';art.style.height=h+'px';c.setTransform(dpr,0,0,dpr,0,0)};
+ if('ResizeObserver'in window)new ResizeObserver(resize).observe(hero);else addEventListener('resize',resize);resize();
+ hero.addEventListener('pointermove',e=>{const r=hero.getBoundingClientRect();mx=(e.clientX-r.left)/r.width-.5;my=(e.clientY-r.top)/r.height-.5},{passive:true});
+ hero.addEventListener('pointerleave',()=>{mx=0;my=0});
+ const poly=(pts,fill,stroke)=>{c.beginPath();pts.forEach((p,i)=>i?c.lineTo(p.x,p.y):c.moveTo(p.x,p.y));c.closePath();if(fill){c.fillStyle=fill;c.fill()}if(stroke){c.strokeStyle=stroke;c.lineWidth=1; c.stroke()}};
+ const draw=()=>{
+  t+=reduce?0:.009; c.clearRect(0,0,w,h);
+  const mobile=w<700,cx=w*.5+mx*13,cy=h*(mobile?.59:.57)+my*10,unit=Math.min(w*.19,h*.21,190);
+  // Wide atmospheric bloom behind the light refraction.
+  let bloom=c.createRadialGradient(cx,cy,0,cx,cy,unit*5.8);
+  bloom.addColorStop(0,'rgba(60,90,125,.22)');bloom.addColorStop(.35,'rgba(36,53,83,.13)');bloom.addColorStop(1,'rgba(0,0,0,0)');
+  c.fillStyle=bloom;c.fillRect(0,0,w,h);
+  c.save();c.translate(cx,cy);c.rotate(Math.sin(t*.32)*.025+mx*.025);
+  // Bright, separated spectral rays, refracting out to the right.
+  const bands=[
+   {y:-.30,col:'rgba(44,145,255,.70)',spread:.10},
+   {y:-.19,col:'rgba(125,72,255,.68)',spread:.085},
+   {y:-.085,col:'rgba(255,70,180,.72)',spread:.075},
+   {y:.015,col:'rgba(255,87,62,.76)',spread:.08},
+   {y:.105,col:'rgba(255,178,58,.8)',spread:.095},
+   {y:.205,col:'rgba(255,239,116,.72)',spread:.085},
+   {y:.30,col:'rgba(75,224,255,.58)',spread:.07}
+  ];
+  const rayEnd=w*1.2;
+  bands.forEach((b,i)=>{
+   const wave=Math.sin(t*.55+i*.7)*unit*.035;
+   const grad=c.createLinearGradient(unit*.05,b.y*unit,rayEnd,b.y*unit+wave);
+   grad.addColorStop(0,b.col.replace(/,[0-9.]+\)$/g,',0.8)'));grad.addColorStop(.32,b.col);grad.addColorStop(.72,b.col.replace(/,[0-9.]+\)$/g,',0.22)'));grad.addColorStop(1,'rgba(0,0,0,0)');
+   c.beginPath();c.moveTo(unit*.08,b.y*unit-unit*b.spread*.15);c.bezierCurveTo(unit*.7,b.y*unit-unit*b.spread,rayEnd*.72,b.y*unit+wave-unit*b.spread*1.5,rayEnd,b.y*unit+wave-unit*b.spread*2.1);c.lineTo(rayEnd,b.y*unit+wave+unit*b.spread*2.1);c.bezierCurveTo(rayEnd*.72,b.y*unit+wave+unit*b.spread*1.5,unit*.7,b.y*unit+unit*b.spread,unit*.08,b.y*unit+unit*b.spread*.15);c.closePath();c.fillStyle=grad;c.fill();
+  });
+  // Focused white beam entering the prism from the left.
+  const white=c.createLinearGradient(-w*.55,0,-unit*.05,0);white.addColorStop(0,'rgba(255,255,255,0)');white.addColorStop(.72,'rgba(220,236,255,.16)');white.addColorStop(1,'rgba(255,255,255,.9)');
+  c.fillStyle=white;c.fillRect(-w*.55,-1.4, w*.55-unit*.05,2.8);
+  // Soft bloom around the glass body.
+  const glow=c.createRadialGradient(0,0,unit*.05,0,0,unit*1.45);glow.addColorStop(0,'rgba(100,215,255,.23)');glow.addColorStop(.48,'rgba(82,140,255,.1)');glow.addColorStop(1,'rgba(0,0,0,0)');
+  c.fillStyle=glow;c.fillRect(-unit*1.5,-unit*1.4,unit*3,unit*2.8);
+  // A faceted, transparent triangular prism with reflective edges.
+  const top={x:-unit*.08,y:-unit*.75},left={x:-unit*.68,y:unit*.34},right={x:unit*.64,y:unit*.32},back={x:unit*.18,y:-unit*.18},bottom={x:-unit*.04,y:unit*.77};
+  poly([top,left,bottom,right],'rgba(5,12,22,.78)','rgba(190,235,255,.48)');
+  poly([top,right,back],'rgba(130,210,255,.16)','rgba(210,246,255,.85)');
+  poly([top,left,back],'rgba(255,255,255,.11)','rgba(255,255,255,.72)');
+  poly([left,back,right],'rgba(25,83,124,.4)','rgba(160,226,255,.55)');
+  poly([left,bottom,right],'rgba(3,10,18,.62)','rgba(160,215,255,.36)');
+  const shine=c.createLinearGradient(-unit*.5,-unit*.5,unit*.45,unit*.5);shine.addColorStop(0,'rgba(255,255,255,.7)');shine.addColorStop(.5,'rgba(100,210,255,.08)');shine.addColorStop(1,'rgba(255,255,255,.3)');
+  c.beginPath();c.moveTo(top.x,top.y);c.lineTo(back.x,back.y);c.lineTo(bottom.x,bottom.y);c.strokeStyle=shine;c.lineWidth=2;c.stroke();
+  c.beginPath();c.moveTo(left.x,left.y);c.lineTo(back.x,back.y);c.lineTo(right.x,right.y);c.strokeStyle='rgba(210,245,255,.65)';c.lineWidth=1.3;c.stroke();
+  // Small prismatic flares at the glass edges.
+  for(let i=0;i<3;i++){const px=[-unit*.28,unit*.18,unit*.34][i],py=[-unit*.52,unit*.42,-unit*.13][i];const flare=c.createRadialGradient(px,py,0,px,py,unit*.17);flare.addColorStop(0,'rgba(180,255,255,.9)');flare.addColorStop(.3,'rgba(63,199,255,.35)');flare.addColorStop(1,'rgba(0,0,0,0)');c.fillStyle=flare;c.fillRect(px-unit*.18,py-unit*.18,unit*.36,unit*.36)}
+  c.restore();
+  if(!reduce)raf=requestAnimationFrame(draw);
+ };
+ draw();document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelAnimationFrame(raf);else if(!reduce){cancelAnimationFrame(raf);raf=requestAnimationFrame(draw)}});
 }
 const pre=d.querySelector('.preloader');if(pre){let n=0;const count=pre.querySelector('.preloader-count');const tick=()=>{n=Math.min(100,n+4);if(count)count.textContent=String(n).padStart(3,'0');if(n<100){setTimeout(tick,18)}else{setTimeout(()=>{pre.style.transition='transform 900ms cubic-bezier(.22,1,.36,1)';pre.style.transform='translateY(-100%)';setTimeout(()=>pre.remove(),950)},100)}};tick()}
 if(!reduce&&window.gsap){const title=d.querySelector('.hero-wordmark');if(title)gsap.from(title,{yPercent:105,opacity:0,duration:1.15,ease:'power3.out',delay:.18});d.querySelectorAll('.page-title .title-line').forEach(el=>gsap.from(el,{yPercent:110,opacity:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 88%'}}));d.querySelectorAll('.intro-statement').forEach(el=>gsap.from(el,{y:28,opacity:0,duration:1.1,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 88%'}}));d.querySelectorAll('.world-row,.photo,.game-panel,.voice-tool,.ai-feature').forEach((el,i)=>gsap.from(el,{y:34,opacity:0,duration:.9,delay:(i%3)*.06,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 92%'}}));}

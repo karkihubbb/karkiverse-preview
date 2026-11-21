@@ -1,6 +1,6 @@
 :root{--bg:#0b0b0c;--surface:#111113;--line:#232326;--muted:#8a8a8f;--text:#f4f2ee;--accent:#e8412c;--ease:cubic-bezier(.22,1,.36,1);--mono:'JetBrains Mono',monospace;--display:'Inter Tight',Arial,sans-serif}
 *{box-sizing:border-box}html{background:var(--bg);scroll-behavior:auto}body{margin:0;background:var(--bg);color:var(--text);font-family:var(--display);font-weight:500;overflow-x:hidden}a{color:inherit;text-decoration:none}button,textarea,select{font:inherit}button{color:inherit}
-.contours{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}.grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E")}
+.contours{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}.spider-web-canvas{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.92;display:block}.home-page,.inner-page{background:#080809}.home-page main,.home-page .site-footer,.inner-page .inner-main,.inner-page .site-footer{position:relative;z-index:2}.grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E")}
 .site-header{position:fixed;z-index:30;top:0;left:0;right:0;height:82px;padding:0 max(32px,calc((100vw - 1440px)/2));display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.04);background:rgba(11,11,12,.62)}
 .brand,.footer-brand{font-size:20px;font-weight:700;letter-spacing:-.025em}.brand span,.footer-brand span{color:var(--accent)}
 .site-nav{height:100%;display:flex;align-items:center;gap:34px}.site-nav a{height:100%;display:flex;align-items:center;position:relative;color:var(--muted);font-size:13px;transition:color .25s var(--ease)}.site-nav a:hover{color:var(--accent)}.site-nav a[aria-current=page]{color:var(--text)}.site-nav a[aria-current=page]:after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--accent)}
@@ -56,21 +56,21 @@
 /* Vignette Bloom published animated mosaic background */
 .home-page{background:#090a0c}
 .home-page .hero{position:relative;background:transparent}
-.vignette-bloom-bg{position:fixed;inset:0;width:100vw;height:100vh;height:100dvh;border:0;z-index:0;pointer-events:none;opacity:.92;background:#090a0c;display:block}
-.home-page .grain{z-index:1;opacity:.025}
-.home-page main,.home-page .site-footer{position:relative;z-index:2}
+
+
+
 .home-page .hero-meta,.home-page .hero-title-wrap,.home-page .hero-foot{position:relative;z-index:2}
 .home-page .hero-wordmark{text-shadow:0 2px 34px rgba(0,0,0,.24)}
-@media(max-width:760px){.vignette-bloom-bg{opacity:.72}}
-@media(prefers-reduced-motion:reduce){.vignette-bloom-bg{opacity:.42}}
+@media(max-width:760px){}
+@media(prefers-reduced-motion:reduce){}
 
 
 /* Shared Vignette Bloom background — all KarkiVerse pages */
 .inner-page{background:#090a0c}
-.inner-page .vignette-bloom-bg{position:fixed;inset:0;width:100vw;height:100vh;height:100dvh;border:0;z-index:0;pointer-events:none;opacity:.84;background:#090a0c;display:block}
+.inner-page 
 .inner-page .grain{z-index:1;opacity:.025}
 .inner-page .site-header{z-index:30}
 .inner-page .inner-main,.inner-page .site-footer{position:relative;z-index:2}
 .inner-page .page-curtain{z-index:40}
-@media(max-width:760px){.inner-page .vignette-bloom-bg{opacity:.62}}
-@media(prefers-reduced-motion:reduce){.inner-page .vignette-bloom-bg{opacity:.38}}
+@media(max-width:760px){.inner-page }
+@media(prefers-reduced-motion:reduce){.inner-page }

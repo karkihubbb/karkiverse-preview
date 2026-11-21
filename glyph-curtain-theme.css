@@ -93,6 +93,8 @@ a{color:#2b2620}
 /* Glyph Curtain destination hero */
 #glyph-curtain-mount{padding-top:76px}
 .gch-root{
+  display:grid;
+  grid-template-rows:auto minmax(0,1fr) auto;
   --gch-paper:#e9e3d4;
   --gch-ink:#2b2620;
   --gch-soft:#6f675b;

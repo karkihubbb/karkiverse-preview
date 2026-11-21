@@ -8,7 +8,6 @@ if (mount) {
   createRoot(mount).render(
     React.createElement(GlyphCurtainHero, {
       initialIndex: 2,
-      height: "calc(100svh - 76px)",
       cta: "Explore KarkiVerse",
       onCta: () => document.getElementById("world")?.scrollIntoView({ behavior: "smooth" })
     })

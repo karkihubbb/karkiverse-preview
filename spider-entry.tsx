@@ -16,7 +16,7 @@ createRoot(host).render(
     seedWebs: 18,
     maxThreads: 120,
     maxDpr: 2,
-    zIndex: 40,
+    zIndex: 20,
     fly: true,
     enter: true
   })

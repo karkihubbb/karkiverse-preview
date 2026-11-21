@@ -67,10 +67,7 @@
 
 /* Shared Vignette Bloom background — all KarkiVerse pages */
 .inner-page{background:#090a0c}
-.inner-page 
 .inner-page .grain{z-index:1;opacity:.025}
 .inner-page .site-header{z-index:30}
 .inner-page .inner-main,.inner-page .site-footer{position:relative;z-index:2}
 .inner-page .page-curtain{z-index:40}
-@media(max-width:760px){.inner-page }
-@media(prefers-reduced-motion:reduce){.inner-page }

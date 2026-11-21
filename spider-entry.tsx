@@ -13,9 +13,10 @@ createRoot(host).render(
     silkColor: "#f2eee8",
     bounceColor: "#0b0b0c",
     shadowColor: "#000000",
-    seedWebs: 18,
-    maxThreads: 120,
-    maxDpr: 2,
+    size: window.matchMedia("(max-width: 760px)").matches ? 105 : 175,
+    seedWebs: window.matchMedia("(max-width: 760px)").matches ? 7 : 12,
+    maxThreads: window.matchMedia("(max-width: 760px)").matches ? 48 : 85,
+    maxDpr: window.matchMedia("(max-width: 760px)").matches ? 1.5 : 2,
     zIndex: 20,
     fly: true,
     enter: true

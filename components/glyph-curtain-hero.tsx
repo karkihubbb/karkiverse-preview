@@ -88,6 +88,8 @@ export default function GlyphCurtainHero({
   const roofRef = React.useRef<HTMLDivElement | null>(null);
   const canvasRef = React.useRef<HTMLCanvasElement | null>(null);
   const strandsRef = React.useRef<Strand[]>([]);
+  const roofOriginRef = React.useRef(0);
+  const roofDeltaRef = React.useRef(0);
   const pointerRef = React.useRef({ x: 0, y: 0, on: false });
   const busyRef = React.useRef(false);
   const timerRef = React.useRef<number[]>([]);
@@ -125,6 +127,8 @@ export default function GlyphCurtainHero({
     const rows = clamp(Math.floor((bottom - top) / segment), 7, 44);
     const chars = Array.from(data.glyphs);
     const left = roofRect.left - rootRect.left + (roofRect.width - span) / 2;
+    roofOriginRef.current = roofRect.left - rootRect.left;
+    roofDeltaRef.current = 0;
     const strands: Strand[] = [];
 
     for (let column = 0; column < columns; column++) {
@@ -179,11 +183,22 @@ export default function GlyphCurtainHero({
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
       ctx.fillStyle = "rgba(43,38,32,.78)";
+      const roof = roofRef.current;
+      const rootRect = root.getBoundingClientRect();
+      const roofRect = roof?.getBoundingClientRect();
+      const roofDelta = roofRect ? roofRect.left - rootRect.left - roofOriginRef.current : roofDeltaRef.current;
+      const roofStep = roofDelta - roofDeltaRef.current;
+      roofDeltaRef.current = roofDelta;
 
       for (const strand of strandsRef.current) {
+        if (Math.abs(roofStep) > 0.001) {
+          for (let row = 1; row < strand.u.length; row++) {
+            strand.u[row] -= roofStep * 0.08 * (row / strand.u.length);
+          }
+        }
         const count = strand.u.length;
         const xPositions = new Float32Array(count);
-        let previousX = strand.ax;
+        let previousX = strand.ax + roofDelta;
 
         for (let row = 1; row < count; row++) {
           const below = row === count - 1 ? strand.u[row] : strand.u[row + 1];
@@ -196,7 +211,7 @@ export default function GlyphCurtainHero({
 
         for (let row = 0; row < count; row++) {
           const baseY = strand.ay + row * fontSize * 1.12;
-          let x = strand.ax + strand.u[row];
+          let x = strand.ax + roofDelta + strand.u[row];
 
           if (!reduced && pointer.on) {
             const dx = x - pointer.x;
@@ -208,12 +223,12 @@ export default function GlyphCurtainHero({
               const target = pointer.x + side * edge;
               strand.u[row] += (target - x) * 0.16;
               strand.v[row] *= 0.5;
-              x = strand.ax + strand.u[row];
+              x = strand.ax + roofDelta + strand.u[row];
             }
           }
 
-          const before = row ? strand.ax + strand.u[row - 1] : strand.ax;
-          const after = row < count - 1 ? strand.ax + strand.u[row + 1] : x;
+          const before = row ? strand.ax + roofDelta + strand.u[row - 1] : strand.ax + roofDelta;
+          const after = row < count - 1 ? strand.ax + roofDelta + strand.u[row + 1] : x;
           const angle = -Math.atan2(after - before, fontSize * 2.1);
           const y = baseY + (row ? Math.abs(x - previousX) * 0.12 : 0);
           xPositions[row] = x;

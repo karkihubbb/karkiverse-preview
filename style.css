@@ -255,3 +255,5 @@ main,.site-footer{z-index:2}
 @media(max-width:760px){.flappy-stage canvas{width:min(100%,320px)}}
 
 /* editorial preview build trigger */
+
+body.home-page,body.inner-page{background:var(--bg)!important;color:var(--text)}

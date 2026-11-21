@@ -259,3 +259,15 @@ main,.site-footer{z-index:2}
 body.home-page,body.inner-page{background:var(--bg)!important;color:var(--text)}
 
 /* warm canvas deployment refresh */
+
+
+/* Immersive animated editorial hero artwork */
+.hero{isolation:isolate}
+.hero-art-canvas{position:absolute;z-index:0;inset:0;width:100%;height:100%;pointer-events:none;opacity:.98;mix-blend-mode:multiply}
+.hero-meta,.hero-title-wrap,.hero-foot{position:relative;z-index:2}
+.hero-wordmark{mix-blend-mode:normal}
+.hero:before{opacity:.28;filter:blur(1px)}
+.hero:after{opacity:.5}
+.world-row{will-change:padding}
+@media(max-width:760px){.hero-art-canvas{opacity:.68}.hero:before{opacity:.2}}
+@media(prefers-reduced-motion:reduce){.hero-art-canvas{opacity:.42}}

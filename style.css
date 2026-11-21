@@ -257,3 +257,5 @@ main,.site-footer{z-index:2}
 /* editorial preview build trigger */
 
 body.home-page,body.inner-page{background:var(--bg)!important;color:var(--text)}
+
+/* warm canvas deployment refresh */

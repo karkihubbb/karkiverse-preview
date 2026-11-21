@@ -2,15 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#0b0b0c"><meta name="description" content="KarkiVerse — the personal website of Sarwagya Karki.">
+  <meta name="theme-color" content="#e9e3d4"><meta name="description" content="KarkiVerse — the personal website of Sarwagya Karki.">
   <title>KarkiVerse — Sarwagya Karki</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=IBM+Plex+Mono:wght@400;500&family=Noto+Serif+SC:wght@600&family=Noto+Serif+JP:wght@600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/lenis@1.1.9/dist/lenis.min.js"></script>
   <script type="module" src="/spider-entry.tsx"></script>
+  <script type="module" src="/glyph-curtain-entry.tsx"></script>
   <script defer src="main.js"></script>
 </head>
 <body class="home-page">
@@ -26,11 +27,7 @@
     <div class="scroll-progress" aria-hidden="true"></div>
   </header>
   <main>
-    <section class="hero" id="top">
-      <div class="hero-meta"><span>PERSONAL SITE / 2026</span><span>DHARAN, NEPAL&nbsp;&nbsp; 27°N / 87°E</span></div>
-      <div class="hero-title-wrap"><h1 class="hero-wordmark"><span>KarkiVerse</span><span class="accent-period">.</span></h1></div>
-      <div class="hero-foot"><span>A PLACE FOR THE THINGS I MAKE AND KEEP.</span><a href="#about">SCROLL TO EXPLORE <span>↓</span></a></div>
-    </section>
+    <div id="glyph-curtain-mount"></div>
     <section class="intro section-grid" id="about">
       <div class="section-label">01 / ABOUT</div>
       <div class="intro-content"><p class="intro-statement">I’m Sarwagya Karki. This is my corner of the internet — a place for my photos, small projects, games and things I’m working on.</p><a class="text-link" href="about.html">A little more about me <span>↗</span></a></div>

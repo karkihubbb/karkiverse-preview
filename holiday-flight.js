@@ -60,7 +60,8 @@ function makeSprite(){
   R(4,39,2,2,gold);R(66,53,2,2,cream);R(88,13,2,2,white);
   return c;
 }
-sprite=makeSprite();\nconst spritePixels=sprite.getContext('2d').getImageData(0,0,sprite.width,sprite.height).data;
+sprite=makeSprite();
+const spritePixels=sprite.getContext('2d').getImageData(0,0,sprite.width,sprite.height).data;
 function dot(x,y,r,color,alpha=1){ctx.globalAlpha=alpha;ctx.fillStyle=color;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1}
 function drawMountains(t){
   const base=h*.865,step=5,scale=Math.max(.65,Math.min(1.1,w/900));
@@ -98,8 +99,7 @@ function draw(t,dt){
   const y=h*(coarse?.43:.39)+Math.sin(t*.75)*Math.min(13,h*.012);
   const tilt=Math.sin(t*.75)*.035;
   ctx.save();ctx.translate(x+sw/2,y);ctx.rotate(tilt);
-  const cols=sprite.width,rows=sprite.height,off=document.createElement('canvas');off.width=cols;off.height=rows;const oc=off.getContext('2d');oc.drawImage(sprite,0,0);
-  const pixels=oc.getImageData(0,0,cols,rows).data;
+  const cols=sprite.width,rows=sprite.height,pixels=spritePixels;
   const cell=scale*3.35, radius=cell*.39;
   for(let yy=0;yy<rows;yy++)for(let xx=0;xx<cols;xx++){const i=(yy*cols+xx)*4;if(pixels[i+3]>0){dot((xx-cols/2)*cell,(yy-rows/2)*cell,radius,'rgb('+pixels[i]+','+pixels[i+1]+','+pixels[i+2]+')',.98)}}
   // shimmering gold trail behind the sleigh

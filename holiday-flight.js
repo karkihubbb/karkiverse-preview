@@ -60,7 +60,7 @@ function makeSprite(){
   R(4,39,2,2,gold);R(66,53,2,2,cream);R(88,13,2,2,white);
   return c;
 }
-sprite=makeSprite();
+sprite=makeSprite();\nconst spritePixels=sprite.getContext('2d').getImageData(0,0,sprite.width,sprite.height).data;
 function dot(x,y,r,color,alpha=1){ctx.globalAlpha=alpha;ctx.fillStyle=color;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1}
 function drawMountains(t){
   const base=h*.865,step=5,scale=Math.max(.65,Math.min(1.1,w/900));
@@ -91,7 +91,7 @@ function draw(t,dt){
   for(const p of snow){p.y+=p.v*dt;p.x+=p.d*dt;if(p.y>h*.88){p.y=-4;p.x=rand(0,w)}if(p.x<0)p.x=w;if(p.x>w)p.x=0;dot(p.x,p.y,p.r,'#c9d6e9',.38)}
   drawMountains(t);
   // sleigh passes through the sky, scaled for phone and desktop
-  const scale=Math.min(w/510,1.0);const sw=sprite.width*scale,sh=sprite.height*scale;
+  const scale=Math.min(w/720,1.0);const sw=sprite.width*scale,sh=sprite.height*scale;
   const travel=w+sw*2;const cycle=17;
   const progress=((t%cycle)/cycle);
   const x=-sw+(progress*travel);

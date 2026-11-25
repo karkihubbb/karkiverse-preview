@@ -7,7 +7,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="holiday-flight.css?v=2">
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/lenis@1.1.9/dist/lenis.min.js"></script>
@@ -26,6 +25,12 @@
     <div class="scroll-progress" aria-hidden="true"></div>
   </header>
   <main>
+    <section class="christmas-film" aria-label="KarkiVerse Christmas animation">
+      <video class="christmas-film__video" id="christmas-film" autoplay muted loop playsinline preload="auto" poster="">
+        <source src="christmas-animation.mp4" type="video/mp4">
+      </video>
+      <button class="christmas-film__sound" id="christmas-film-sound" type="button" aria-pressed="false">♫ SOUND OFF</button>
+    </section>
     <section class="hero" id="top">
       <div class="hero-meta"><span>PERSONAL SITE / 2026</span><span>DHARAN, NEPAL&nbsp;&nbsp; 27°N / 87°E</span></div>
       <div class="hero-title-wrap"><h1 class="hero-wordmark"><span>KarkiVerse</span><span class="accent-period">.</span></h1></div>
@@ -48,8 +53,22 @@
     </section>
   </main>
   <footer class="site-footer"><a class="footer-brand" href="index.html">KarkiVerse<span>.</span></a><span>© 2026 KarkiVerse</span><span>Made by Sarwagya Karki</span><a href="#top">BACK TO TOP ↑</a></footer>
-  <canvas id="kv-holiday-flight" aria-hidden="true"></canvas>
-  <button id="kv-holiday-sound" type="button" aria-label="Turn festive sound on" aria-pressed="false">♫ Sound off</button>
-  <script defer src="holiday-flight.js?v=2"></script>
+  <script>
+    (() => {
+      const video = document.getElementById('christmas-film');
+      const button = document.getElementById('christmas-film-sound');
+      if (!video || !button) return;
+      button.addEventListener('click', async () => {
+        video.muted = !video.muted;
+        button.textContent = video.muted ? '♫ SOUND OFF' : '♫ SOUND ON';
+        button.setAttribute('aria-pressed', String(!video.muted));
+        if (!video.muted) { try { await video.play(); } catch (_) {} }
+      });
+      video.addEventListener('error', () => {
+        button.textContent = 'VIDEO FILE NEEDED';
+        button.disabled = true;
+      });
+    })();
+  </script>
   
 </body></html>

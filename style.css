@@ -74,3 +74,50 @@
 .inner-page .page-curtain{z-index:40}
 @media(max-width:760px){.inner-page .vignette-bloom-bg{opacity:.62}}
 @media(prefers-reduced-motion:reduce){.inner-page .vignette-bloom-bg{opacity:.38}}
+
+
+/* KarkiVerse Christmas film — full-bleed strip beneath the fixed navigation */
+.christmas-film{
+  position:relative;
+  width:100%;
+  margin-top:82px;
+  aspect-ratio:16/9;
+  max-height: min(72vh, 760px);
+  overflow:hidden;
+  background:#070a12;
+  isolation:isolate;
+}
+.christmas-film__video{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+}
+.christmas-film__sound{
+  position:absolute;
+  right:clamp(14px,2.5vw,34px);
+  bottom:clamp(14px,2.5vw,28px);
+  z-index:2;
+  border:1px solid rgba(255,255,255,.28);
+  border-radius:2px;
+  padding:11px 15px;
+  background:rgba(8,10,15,.72);
+  color:#f7f3e8;
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  font:400 10px/1.2 var(--mono);
+  letter-spacing:.1em;
+  cursor:pointer;
+  transition:background .2s,border-color .2s,color .2s;
+}
+.christmas-film__sound:hover{background:rgba(8,10,15,.92);border-color:rgba(255,225,160,.75);color:#ffe6a0}
+.christmas-film__sound:focus-visible{outline:2px solid #ffe6a0;outline-offset:4px}
+.christmas-film__sound:disabled{opacity:.6;cursor:default}
+@media(max-width:760px){
+  .christmas-film{margin-top:68px;aspect-ratio:9/10;max-height:72svh}
+  .christmas-film__video{object-fit:cover}
+}
+@media(prefers-reduced-motion:reduce){
+  .christmas-film__video{visibility:hidden}
+}

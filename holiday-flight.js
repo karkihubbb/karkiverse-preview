@@ -127,6 +127,6 @@ function stopSound(){soundOn=false;if(soundTimer)clearInterval(soundTimer);sound
 soundButton?.addEventListener('click',()=>{if(soundOn)stopSound();else{if(master)master.gain.setTargetAtTime(.35,audioCtx.currentTime,.04);startSound()}});
 function frame(now){if(!last)last=now;const dt=Math.min(.05,(now-last)/1000);last=now;elapsed+=dt;draw(elapsed,dt);raf=requestAnimationFrame(frame)}
 resize();addEventListener('resize',resize,{passive:true});
-if(!reduced)raf=requestAnimationFrame(frame);else draw(0,0);
-document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnimationFrame(raf);stopSound()}else if(!reduced){last=0;raf=requestAnimationFrame(frame)}});
+raf=requestAnimationFrame(frame);
+document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnimationFrame(raf);stopSound()}else{last=0;raf=requestAnimationFrame(frame)}});
 })();
